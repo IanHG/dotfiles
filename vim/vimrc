@@ -1,6 +1,7 @@
 if !has("nvim")
    set nocompatible  " do not be compatible with old Vi, so become iMproved ! :D
    set t_Co=256      " set vim to use 256 colors
+   set ttyfast
 endif
 
 if has('nvim')
@@ -66,7 +67,6 @@ syntax on
 hi Search ctermfg=Black ctermbg=yellow
 hi Comment ctermfg=Darkblue
 hi Keyword ctermfg=Yellow
-hi Operator ctermfg=Yellow
 hi Statement ctermfg=Yellow
 "hi Special ctermfg=DarkCyan
 hi PreProc ctermfg=Magenta
@@ -76,9 +76,8 @@ set viminfo='20,\"50,:20,%,n~/.viminfo "
 set history=50
 set bs=indent,eol,start
 
-"" performance stuff
+" performance stuff
 "set fillchars=diff:·
-"set ttyfast
 "set lazyredraw       " main performance boost
 
 " indentation
