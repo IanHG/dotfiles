@@ -70,6 +70,8 @@ hi Keyword ctermfg=Yellow
 hi Statement ctermfg=Yellow
 "hi Special ctermfg=DarkCyan
 hi PreProc ctermfg=Magenta
+hi Visual ctermfg=black
+hi Pmenu ctermbg=blue
 
 " save history and copy between file openings
 set viminfo='20,\"50,:20,%,n~/.viminfo " 
@@ -82,12 +84,15 @@ set bs=indent,eol,start
 
 " indentation
 set autoindent
-set cindent
+set smartindent
 
 " tab
 set expandtab
+set et
 set tabstop=3
 set shiftwidth=3
+
+"set showmatch
 
 "other stuff
 set showmode ruler " show ruler at bottom of screen
@@ -102,12 +107,20 @@ set foldlevel=99
 "" line numbering
 set number
 highlight LineNr ctermbg=Black
+highlight CursorLineNr ctermbg=yellow
+"highlight CursorLine cterm=NONE
+"set cursorline
 
 " set where to split for open in split mode
 set splitbelow
 set splitright
 
+" make y yank to OS clipboard
+set clipboard+=unnamed
+
+" setup syntax for different non-standard extensions
 au BufNewFile,BufRead *.tc set filetype=tcg
+
 "//////////////////////////////////
 " remember cursor position
 "//////////////////////////////////
