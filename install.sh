@@ -6,10 +6,13 @@
 # first clone Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git $PWD/vim/.vim
 # then setup symbolic links
+# Setup symbolic link to .vimrc, if using neovim make symlink ~/.config/nvim/init.vim
 if [ -L ~/.vimrc ]; then rm ~/.vimrc; fi
-ln -s $PWD/vim/vimrc ~/.vimrc
+ln -s $PWD/vim/vim/init.vim ~/.vimrc
 if [ -L ~/.vim ]; then rm ~/.vim; fi
 ln -s $PWD/vim/vim ~/.vim
+if [ -L ~/.config/nvim ]; then rm ~/.nvim; fi
+ln -s $PWD/vim/vim ~/.config/nvim
 
 #######################################################
 # Bash

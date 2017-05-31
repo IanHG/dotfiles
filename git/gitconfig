@@ -1,3 +1,5 @@
 [user]
 	email = ian@chem.au.dk
 	name = Ian Heide Godtliebsen
+[push]
+	default = simple

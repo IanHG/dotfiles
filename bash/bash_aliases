@@ -5,4 +5,4 @@ alias la='ls -A'
 
 alias reload='source ~/.bashrc'
 
-export EDITOR=vi
+export EDITOR='vi'
