@@ -64,6 +64,7 @@ filetype plugin indent on " required ?
 " highlighting
 set hlsearch       " highlight searches
 syntax on
+"hi Normal ctermbg=black
 hi Search ctermfg=Black ctermbg=yellow
 hi Comment ctermfg=Darkblue
 hi Keyword ctermfg=Yellow
@@ -72,6 +73,7 @@ hi Statement ctermfg=Yellow
 hi PreProc ctermfg=Magenta
 hi Visual ctermfg=black
 hi Pmenu ctermbg=blue
+hi String ctermfg=009
 
 " save history and copy between file openings
 set viminfo='20,\"50,:20,%,n~/.viminfo " 
