@@ -14,6 +14,9 @@ ln -s $PWD/vim/vim ~/.vim
 if [ -L ~/.config/nvim ]; then rm ~/.nvim; fi
 ln -s $PWD/vim/vim ~/.config/nvim
 
+# install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 #######################################################
 # Bash
 #######################################################

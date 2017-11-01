@@ -2,4 +2,8 @@
 	email = ian@chem.au.dk
 	name = Ian Heide Godtliebsen
 [push]
-	default = simple
+   default = simple
+[color]
+   branch = auto
+[alias]
+	ls = log --graph --decorate --pretty=oneline --abbrev-commit

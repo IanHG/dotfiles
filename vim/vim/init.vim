@@ -11,10 +11,12 @@ endif
 filetype off         " required for Vundle
 
 "" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()  " begin loading plugins using vundle
-"
-"Plugin 'VundleVim/Vundle.vim'     " let Vundle manage itself (Vundle-ception! :O )
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()  " begin loading plugins using vundle
+
+Plugin 'VundleVim/Vundle.vim'     " let Vundle manage itself (Vundle-ception! :O )
+Plugin 'jbnicolai/vim-AnsiEsc'
+Plugin 'wikitopian/hardmode'
 "
 "Plugin 'scrooloose/nerdtree'      " file manager
 "Plugin 'scrooloose/syntastic'     " 
@@ -29,7 +31,7 @@ filetype off         " required for Vundle
 "Plugin 'Shougo/vimproc.vim'  " vimproc (used by vimshell)
 "Plugin 'Shougo/vimshell.vim' " vimshell (shell for vim!! :D)
 "
-"call vundle#end()         " end reading in plugins using vundle
+call vundle#end()         " end reading in plugins using vundle
 filetype plugin indent on " required ?
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
