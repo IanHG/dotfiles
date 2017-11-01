@@ -1,6 +1,13 @@
 #!/bin/bash
 
 #######################################################
+# General
+#######################################################
+if [ ! -d ~/.config ]; then
+   mkdir ~/.config   
+fi
+
+#######################################################
 # Vim
 #######################################################
 # first clone Vundle
@@ -11,7 +18,7 @@ if [ -L ~/.vimrc ]; then rm ~/.vimrc; fi
 ln -s $PWD/vim/vim/init.vim ~/.vimrc
 if [ -L ~/.vim ]; then rm ~/.vim; fi
 ln -s $PWD/vim/vim ~/.vim
-if [ -L ~/.config/nvim ]; then rm ~/.nvim; fi
+if [ -L ~/.config/nvim ]; then rm ~/.config/nvim; fi
 ln -s $PWD/vim/vim ~/.config/nvim
 
 # install Vundle
