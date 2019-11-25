@@ -33,7 +33,7 @@ Plugin 'rust-lang/rust.vim'
 "Plugin 'Shougo/vimshell.vim' " vimshell (shell for vim!! :D)
 "
 call vundle#end()         " end reading in plugins using vundle
-filetype plugin indent on " required ?
+filetype plugin indent on " Let vim decide on highlighting based on filetype
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -234,3 +234,7 @@ if has("autocmd")
           \ endif
   augroup END
 endif
+
+map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
