@@ -15,6 +15,18 @@ syntax region texterminal matchgroup=texBeginEnd start="\\begin{terminal}"
 highlight texterminal cterm=bold
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tex terminalnoheader commands highlight
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax region texterminal matchgroup=texBeginEnd start="\\begin{terminalnoheader}" 
+                        \ matchgroup=texBeginEnd end="\\end{terminalnoheader}\|%stopzone\>" 
+                        \ fold
+                        \ contained
+                        \ containedin=texDocZone
+                        \ contains=@Spell
+
+highlight texterminal cterm=bold
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tex CPP commands highlight
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax region texcpp      matchgroup=texBeginEnd start="\\begin{cpp}\(\[.*\]\)\?" 

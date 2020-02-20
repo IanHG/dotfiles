@@ -35,3 +35,9 @@ ln -s $PWD/bash/bash_aliases ~/.bash_aliases
 #######################################################
 if [ -L ~/.gitconfig ]; then rm ~/.gitconfig; fi
 ln -s $PWD/git/gitconfig ~/.gitconfig
+
+#######################################################
+# Top
+#######################################################
+if [ -L ~/.toprc ]; then rm ~/.toprc; fi
+ln -s $PWD/top/toprc ~/.toprc
