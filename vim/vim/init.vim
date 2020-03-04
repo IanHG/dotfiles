@@ -69,7 +69,7 @@ set hlsearch       " highlight searches
 syntax on
 "hi Normal ctermbg=black
 hi Search ctermfg=Black ctermbg=yellow
-hi Comment ctermfg=Darkblue
+hi Comment ctermfg=Blue
 hi Keyword ctermfg=Yellow
 hi Statement ctermfg=Yellow
 "hi Special ctermfg=DarkCyan
