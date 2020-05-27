@@ -125,6 +125,8 @@ set clipboard+=unnamed
 
 " setup syntax for different non-standard extensions
 au BufNewFile,BufRead *.tc set filetype=tcg
+au BufNewFile,BufRead *.gdef set filetype=lua
+au BufNewFile,BufRead *.gpack set filetype=lua
 
 "//////////////////////////////////
 " remember cursor position
