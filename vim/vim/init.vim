@@ -33,6 +33,7 @@ Plugin 'rust-lang/rust.vim'
 "Plugin 'Shougo/vimshell.vim' " vimshell (shell for vim!! :D)
 "
 call vundle#end()         " end reading in plugins using vundle
+
 filetype plugin indent on " Let vim decide on highlighting based on filetype
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -127,6 +128,8 @@ set clipboard+=unnamed
 au BufNewFile,BufRead *.tc set filetype=tcg
 au BufNewFile,BufRead *.gdef set filetype=lua
 au BufNewFile,BufRead *.gpack set filetype=lua
+
+"source /home/ian/programming/cpp/exception/vim_ce/plugin/vim_ce.vim
 
 "//////////////////////////////////
 " remember cursor position
