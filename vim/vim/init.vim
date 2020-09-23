@@ -1,6 +1,15 @@
+"--------------------------------------------------------------------
+"
+" VImRC file for setting up VIm / NVIm
+"
+"--------------------------------------------------------------------
+
+"--------------------------------------------------------------------
+" Some initalization
+"--------------------------------------------------------------------
 if !has("nvim")
-   set nocompatible  " do not be compatible with old Vi, so become iMproved ! :D
-   set t_Co=256      " set vim to use 256 colors
+   set nocompatible  " Do not be compatible with old Vi, so become iMproved ! :D
+   set t_Co=256      " Set vim to use 256 colors
    set ttyfast
 endif
 
@@ -8,6 +17,9 @@ if has('nvim')
    tnoremap <Esc> <C-\><C-n>
 endif
 
+"--------------------------------------------------------------------
+" Vundle stuff... Should maybe think about removing (don't think I'm using it)
+"--------------------------------------------------------------------
 filetype off         " required for Vundle
 
 "" set the runtime path to include Vundle and initialize
@@ -65,75 +77,88 @@ filetype plugin indent on " Let vim decide on highlighting based on filetype
 "let g:airline_powerline_fonts = 1
 "set showtabline=2
 
-" highlighting
-set hlsearch       " highlight searches
-syntax on
-"hi Normal ctermbg=black
-hi Search ctermfg=Black ctermbg=yellow
-hi Comment ctermfg=Blue
-hi Keyword ctermfg=Yellow
-hi Statement ctermfg=Yellow
-"hi Special ctermfg=DarkCyan
-hi PreProc ctermfg=Magenta
-hi Visual ctermfg=black
-hi Pmenu ctermbg=blue
-hi String ctermfg=009
+"--------------------------------------------------------------------
+" Highlighting
+"--------------------------------------------------------------------
+set hlsearch " Highlight searches
+syntax on    " Syntax highlighting turned on    
 
-" save history and copy between file openings
+" Keyword highlighting
+"highlight Normal ctermbg=black
+highlight Search      ctermfg=Black ctermbg=yellow
+highlight Comment     ctermfg=Blue
+highlight Keyword     ctermfg=Yellow
+highlight Statement   ctermfg=Yellow
+"highlight Special     ctermfg=DarkCyan
+highlight PreProc     ctermfg=Magenta
+highlight Visual      ctermfg=black
+highlight Pmenu       ctermbg=blue
+highlight String      ctermfg=009
+highlight Link        ctermfg=Magenta
+
+" Cursor highligting
+highlight LineNr       ctermbg=Black
+highlight CursorLineNr ctermbg=yellow
+
+" Cursor underline ?
+"set cursorline
+"highlight CursorLine   cterm=NONE
+
+" line numbering
+set number
+
+"--------------------------------------------------------------------
+" Save history and copy between file openings
+"--------------------------------------------------------------------
 set viminfo='20,\"50,:20,%,n~/.viminfo " 
 set history=50
 set bs=indent,eol,start
 
-" performance stuff
-"set fillchars=diff:·
-"set lazyredraw       " main performance boost
-
-" indentation
+"--------------------------------------------------------------------
+" Indentation
+"--------------------------------------------------------------------
+" Indentation settings
 set autoindent
 set smartindent
 
-" tab
+" Tabs
 set expandtab
 set et
 set tabstop=3
 set shiftwidth=3
 
-"set showmatch
+"--------------------------------------------------------------------
+" Misc
+"--------------------------------------------------------------------
+set showmatch
+set showmode ruler " Show ruler at bottom of screen
+set nowrap         " Do not wrap text (if wrapping is needed call ':set wrap')
 
-"other stuff
-set showmode ruler " show ruler at bottom of screen
-set nowrap         " do not wrap text (looks ugly!)
-
-"" code folding
+" Code folding (can fold syntax/scopes with 'zo' (open) and 'zc' (close))
 set foldenable
 set foldmethod=syntax
 set foldlevelstart=20
 set foldlevel=99
 
-"" line numbering
-set number
-highlight LineNr ctermbg=Black
-highlight CursorLineNr ctermbg=yellow
-"highlight CursorLine cterm=NONE
-"set cursorline
-
-" set where to split for open in split mode
+" Set where to split for open in split mode
 set splitbelow
 set splitright
 
-" make y yank to OS clipboard
+" Make y yank to OS clipboard
 set clipboard+=unnamed
 
-" setup syntax for different non-standard extensions
+" Performance stuff
+"set fillchars=diff:·
+"set lazyredraw       " main performance boost
+
+" Setup syntax for different non-standard extensions
 au BufNewFile,BufRead *.tc set filetype=tcg
 au BufNewFile,BufRead *.gdef set filetype=lua
 au BufNewFile,BufRead *.gpack set filetype=lua
 
-"source /home/ian/programming/cpp/exception/vim_ce/plugin/vim_ce.vim
-
-"//////////////////////////////////
-" remember cursor position
-"//////////////////////////////////
+"--------------------------------------------------------------------
+" Remember cursor position
+"--------------------------------------------------------------------
 function! ResCur()
    if line("'\"") <= line("$")
       normal! g`"
@@ -146,6 +171,9 @@ augroup resCur
    autocmd BufWinEnter * call ResCur()
 augroup END
 
+"--------------------------------------------------------------------
+" Hex mode
+"--------------------------------------------------------------------
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
 

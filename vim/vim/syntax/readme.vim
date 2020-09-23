@@ -23,6 +23,12 @@ highlight Keyword ctermfg=LightBlue
 syntax match attention "\v!.*$"        " Terminal command
 highlight link attention String
 
+" Highlight href/links
+syntax match httpLink  "http://\S*"  
+syntax match httpsLink "https://\S*"  
+highlight link httpLink  Link 
+highlight link httpsLink Link 
+
 "--------------------------------------------------------------------
 "  Enable code snippets to be highlighed using '```' (three-backticks).
 "
