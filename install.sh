@@ -5,7 +5,7 @@
 #
 #--------------------------------------------------------------------
 
-source arg_parse.sh
+source $(dirname $0)/arg_parse.sh
 
 declare -A input_variables=(
    ["install"]="all"
@@ -22,7 +22,7 @@ parse_arguments $@
 
 exit_status=$?
 
-if [ $exit_status ]; then
+if [ "$exit_status" != "0" ]; then
    echo "Error"
    exit $exit_status
 fi
