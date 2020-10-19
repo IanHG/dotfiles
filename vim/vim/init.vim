@@ -80,6 +80,8 @@ filetype plugin indent on " Let vim decide on highlighting based on filetype
 "--------------------------------------------------------------------
 " Highlighting
 "--------------------------------------------------------------------
+set background=light " Start with setting "light" background (has impact on other colors)
+                     " Then we build on this color scheme
 set hlsearch " Highlight searches
 syntax on    " Syntax highlighting turned on    
 
