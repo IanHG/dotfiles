@@ -100,6 +100,12 @@ highlight Link        ctermfg=Magenta
 highlight LineNr       ctermbg=Black
 highlight CursorLineNr ctermbg=yellow
 
+" Diff highlighting
+"highlight DiffAdd      
+"highlight DiffChange   
+"highlight DiffDelete   
+highlight DiffText    ctermfg=Yellow
+
 " Cursor underline ?
 "set cursorline
 "highlight CursorLine   cterm=NONE
