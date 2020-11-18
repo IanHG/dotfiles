@@ -7,3 +7,6 @@ alias reload='source ~/.bashrc'
 alias lolfortune='fortune | cowsay -f moose | lolcat'
 
 export EDITOR='vi'
+
+# Slurm
+alias squeue='squeue --format="%.18i %.50P %.8j %.8u %.2t %.10M %.6D %R"'
