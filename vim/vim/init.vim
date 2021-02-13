@@ -118,6 +118,7 @@ set number
 "--------------------------------------------------------------------
 " Save history and copy between file openings
 "--------------------------------------------------------------------
+set noerrorbells
 set viminfo='20,\"50,:20,%,n~/.viminfo " 
 set history=50
 set bs=indent,eol,start

@@ -163,3 +163,7 @@ bindsym --whole-window --border $mod+shift+button5 workspace next
 
 # Configure keyboard repeat speed
 exec --no-startup-id xset r rate 220 60
+
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+exec --no-startup-id nitrogen --set-auto /home/ian/Documents/dark_side_of_the_moon.png
+#exec_always --no-startup-id compton --config ~/.config/compton.conf
