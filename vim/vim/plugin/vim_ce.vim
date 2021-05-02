@@ -1,6 +1,9 @@
 "--------------------------------------------------------------------
 "
-" Simple local 'Compiler-Explorer' plugin
+" Simple local 'Compiler-Explorer' plugin for VIm
+"
+" Draws inspiration from this talk from Matt Godbolt on https://www.godbolt.org/:
+"    https://www.youtube.com/watch?v=kIoZDUd5DKw
 "
 "--------------------------------------------------------------------
 "--------------------------------------------------------------------
@@ -17,8 +20,9 @@ endif
 "--------------------------------------------------------------------
 " Default options (can be overwritten in source file)
 let s:ce_options_default = {
-   \ 'ce_compiler_cmd': ['g++ -masm=intel -O2'],
-   \ 'ce_cflags'      : [],
+   \ 'ce_compiler_cmd'     : ['g++ -masm=intel -O2'],
+   \ 'ce_cflags'           : [],
+   \ 'ce_llvm_mca_options' : [],
 \ }
 
 " Main window
@@ -101,33 +105,52 @@ function s:ReadOptions(source)
 endfunction
 
 "--------------------------------------------------------------------
+" Add to command from options
+"--------------------------------------------------------------------
+function s:AddOptions(cmd, options, str)
+   let l:cmd = a:cmd
+   for value in a:options[a:str]
+      let l:cmd = l:cmd . ' ' . value
+   endfor
+   return l:cmd
+endfunction
+
+"--------------------------------------------------------------------
 " Create compiler command
 "--------------------------------------------------------------------
 function s:CompilerCommand(options, src_file)
-   " Define closure to get options
-   function! s:AddOptions(compiler_cmd, str) closure
-      for value in a:options[a:str]
-         let compiler_cmd = compiler_cmd . ' ' . value
-      endfor
-   endfunction
-   
    " Create compiler command
    let l:compiler_cmd = ""
-   call s:AddOptions(l:compiler_cmd, 'ce_compiler_cmd')
-   call s:AddOptions(l:compiler_cmd, 'ce_cflags')
+   let l:compiler_cmd = s:AddOptions(l:compiler_cmd, a:options, 'ce_compiler_cmd')
+   let l:compiler_cmd = s:AddOptions(l:compiler_cmd, a:options, 'ce_cflags')
 
    let l:compiler_cmd = l:compiler_cmd . ' -S -c -o - ' . a:src_file
-   let l:compiler_cmd = l:compiler_cmd . ' | c++filt '
-   let l:compiler_cmd = l:compiler_cmd . ' | grep -vE "\s+\."'
    
    " Return compiler command
    return l:compiler_cmd
 endfunction
 
 "--------------------------------------------------------------------
+" Filter for ASM output
+"--------------------------------------------------------------------
+function s:AsmFilter(options)
+   let l:filter = 'c++filt | grep -vE "\s+\."'
+   return l:filter
+endfunction
+
+"--------------------------------------------------------------------
+" Filter for LLVM-MCA (Machine Code Analyser) output
+"--------------------------------------------------------------------
+function s:LlvmMcaFilter(options)
+   let l:filter = 'llvm-mca'
+   let l:filter = s:AddOptions(l:filter, a:options, 'ce_llvm_mca_options')
+   return l:filter
+endfunction
+
+"--------------------------------------------------------------------
 " Compile ASM
 "--------------------------------------------------------------------
-function s:CompileAsm()
+function s:CompileAsm(type)
    let l:cwd  = getcwd()
    let l:file = expand("%:r") 
    let l:src_file = join([cwd, file . '.cpp'], '/')
@@ -135,12 +158,21 @@ function s:CompileAsm()
    
    let l:source       = getline('^', '$')
    let l:options      = s:ReadOptions(l:source)
-   let l:compiler_cmd = s:CompilerCommand(l:options, src_file)
    
+   " Choose command
+   if a:type == "mca"
+      let l:compiler_cmd = s:CompilerCommand(l:options, src_file) . ' | ' . s:LlvmMcaFilter(l:options)
+   else
+      " Default is ASM
+      let l:compiler_cmd = s:CompilerCommand(l:options, src_file) . ' | ' . s:AsmFilter(l:options)
+   endif
+   
+   " Write file and run command
    exe 'silent write ' . src_file
-   
    let l:asm_content = systemlist(l:compiler_cmd)
+   " v:shell_error holds exit status
    
+   " Update window
    let  l:asm_view = winsaveview()
    call win_gotoid(s:asm_win)
    setlocal modifiable noreadonly
@@ -154,10 +186,12 @@ endfunction
 "--------------------------------------------------------------------
 " Define interface
 "--------------------------------------------------------------------
-command! Init    :call s:InitAsmView()
-command! Kill    :call s:KillAsmView()
-command! Compile :call s:CompileAsm()
+command! Init       :call s:InitAsmView()
+command! Kill       :call s:KillAsmView()
+command! CompileAsm :call s:CompileAsm("asm")
+command! CompileMca :call s:CompileAsm("mca")
 
 map <f1> :Init<CR>
 map <f2> :Kill<CR>
-map <f3> :Compile<CR>
+map <f3> :CompileAsm<CR>
+map <f4> :CompileMca<CR>
