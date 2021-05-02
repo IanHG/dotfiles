@@ -38,9 +38,11 @@ highlight link httpsLink Link
 "  
 "  Enabled languages:
 "     cpp
+"     sh
 "
 "--------------------------------------------------------------------
 call TextEnableCodeSnip('cpp', '```\s*cpp', '```', 'SpecialComment')
+call TextEnableCodeSnip('sh', '```\s*sh', '```', 'SpecialComment')
 
 
 " Define current_syntax

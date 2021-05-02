@@ -17,7 +17,7 @@ endif
 "--------------------------------------------------------------------
 " Default options (can be overwritten in source file)
 let s:ce_options_default = {
-   \ 'ce_compiler_cmd': ['g++'],
+   \ 'ce_compiler_cmd': ['g++ -masm=intel -O2'],
    \ 'ce_cflags'      : [],
 \ }
 
@@ -79,7 +79,7 @@ function s:ReadOptions(source)
    
    for l:line in a:source
       for [key, value] in items(s:ce_options_default)
-         let matches = matchlist(l:line, key . '\s*=\(.*\)$')
+         let matches = matchlist(l:line, '!\@<!' . key . '\s*=\(.*\)$')
          if !empty(matches)
             if !has_key(l:options, key)
                let l:options[key] = []
@@ -103,7 +103,7 @@ endfunction
 "--------------------------------------------------------------------
 " Create compiler command
 "--------------------------------------------------------------------
-function s:CompilerCommand(options, asm_file, src_file)
+function s:CompilerCommand(options, src_file)
    " Define closure to get options
    function! s:AddOptions(compiler_cmd, str) closure
       for value in a:options[a:str]
@@ -116,7 +116,9 @@ function s:CompilerCommand(options, asm_file, src_file)
    call s:AddOptions(l:compiler_cmd, 'ce_compiler_cmd')
    call s:AddOptions(l:compiler_cmd, 'ce_cflags')
 
-   let l:compiler_cmd = l:compiler_cmd . ' -S -o ' . a:asm_file . ' ' . a:src_file
+   let l:compiler_cmd = l:compiler_cmd . ' -S -c -o - ' . a:src_file
+   let l:compiler_cmd = l:compiler_cmd . ' | c++filt '
+   let l:compiler_cmd = l:compiler_cmd . ' | grep -vE "\s+\."'
    
    " Return compiler command
    return l:compiler_cmd
@@ -129,16 +131,15 @@ function s:CompileAsm()
    let l:cwd  = getcwd()
    let l:file = expand("%:r") 
    let l:src_file = join([cwd, file . '.cpp'], '/')
-   let l:asm_file = join([cwd, file . '.o']  , '/')
+   "let l:asm_file = join([cwd, file . '.o']  , '/')
    
    let l:source       = getline('^', '$')
    let l:options      = s:ReadOptions(l:source)
-   let l:compiler_cmd = s:CompilerCommand(l:options, asm_file, src_file)
+   let l:compiler_cmd = s:CompilerCommand(l:options, src_file)
    
    exe 'silent write ' . src_file
-   exe 'silent !     ' . l:compiler_cmd
    
-   let l:asm_content = readfile(l:asm_file)
+   let l:asm_content = systemlist(l:compiler_cmd)
    
    let  l:asm_view = winsaveview()
    call win_gotoid(s:asm_win)
@@ -157,4 +158,6 @@ command! Init    :call s:InitAsmView()
 command! Kill    :call s:KillAsmView()
 command! Compile :call s:CompileAsm()
 
+map <f1> :Init<CR>
+map <f2> :Kill<CR>
 map <f3> :Compile<CR>
