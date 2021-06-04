@@ -30,6 +30,7 @@ fi
 #--------------------------------------------------------------------
 # General
 #--------------------------------------------------------------------
+# Make sure we have config directory
 if [ ! -d ~/.config ]; then
    mkdir ~/.config   
 fi
@@ -75,4 +76,12 @@ fi
 if [ "${input_variables['install']}" == "all" ] || [ "${input_variables['install']}" == "top" ]; then
    if [ -L ~/.toprc ]; then rm ~/.toprc; fi
    ln -s $PWD/top/toprc ~/.toprc
+fi
+
+#--------------------------------------------------------------------
+# i3wm - i3 windows manager
+#--------------------------------------------------------------------
+if [ "${input_variables['install']}" == "all" ] || [ "${input_variables['install']}" == "i3" ]; then
+   if [ -L ~/.config/i3 ]; then rm ~/.config/i3; fi
+   ln -s $PWD/i3 ~/.config/i3
 fi
