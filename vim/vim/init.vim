@@ -164,6 +164,11 @@ au BufNewFile,BufRead *.tc set filetype=tcg
 au BufNewFile,BufRead *.gdef set filetype=lua
 au BufNewFile,BufRead *.gpack set filetype=lua
 
+" Source local vimscript file
+if filereadable(".vimlocal")
+   source .vimlocal
+endif
+
 "--------------------------------------------------------------------
 " Remember cursor position
 "--------------------------------------------------------------------
@@ -279,3 +284,4 @@ endif
 map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
